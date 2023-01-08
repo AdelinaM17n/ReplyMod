@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "replymod",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "ReplyMod",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Maheesha"
@@ -13,7 +13,7 @@
     "sources": "https://github.com/MaheEvil/Fabric-Example-Mod-Parchment-QF"
   },
 
-  "license": "CC0-1.0",
+  "license": "MPL-2.0",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
