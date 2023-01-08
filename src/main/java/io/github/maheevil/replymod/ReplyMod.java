@@ -21,6 +21,7 @@ public class ReplyMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("r")));
 		LOGGER.info("Hello Fabric world!");
 	}
 }

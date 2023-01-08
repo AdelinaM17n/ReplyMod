@@ -31,6 +31,7 @@ public abstract class ExampleMixin extends Screen {
 		if(input.length() > 4 && input.substring(1,3).equals("r ")){
 			this.minecraft.gui.getChat().getRecentChat().forEach(s -> System.out.println(s));
 			this.minecraft.player.connection.sendCommand("msg " + ReplyMod.lastMessenger + " " + input.substring(3));
+			cir.setReturnValue(true);
 			cir.cancel();
 		}
 	}
