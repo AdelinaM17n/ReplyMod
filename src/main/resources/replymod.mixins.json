@@ -7,7 +7,7 @@
   ],
   "client": [
     "ClientPacketListenerMixin",
-    "ExampleMixin"
+    "ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
