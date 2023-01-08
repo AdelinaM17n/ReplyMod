@@ -5,31 +5,31 @@
  */
 package io.github.maheevil.replymod;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.commands.Commands;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.commands.arguments.MessageArgument;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static net.minecraft.commands.Commands.literal;
-
-public class ReplyMod implements ModInitializer {
+public class ReplyMod implements ClientModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LogManager.getLogger("modid");
+	public static final Logger LOGGER = LogManager.getLogger("replymod");
 	public static String lastMessenger;
+	public static String clientUsername = "";
 
 	@Override
-	public void onInitialize() {
-		CommandRegistrationCallback.EVENT.register((
-				dispatcher, registryAccess, environment) -> dispatcher.register(literal("r")
-						.then(
-								Commands.argument("message",  MessageArgument.message())
-						)
+	public void onInitializeClient() {
+		//ClientCommandManager.literal()
+		ClientCommandRegistrationCallback.EVENT.register(
+				(dispatcher, registryAccess) -> dispatcher.register(
+						ClientCommandManager.literal("r")
+								.then(
+										ClientCommandManager.argument("message",MessageArgument.message())
+								)
 				)
 		);
-		LOGGER.info("Hello Fabric world!");
 	}
 }
