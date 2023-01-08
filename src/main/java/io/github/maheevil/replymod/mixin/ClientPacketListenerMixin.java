@@ -30,7 +30,6 @@ public class ClientPacketListenerMixin {
     )
     private void replymod$handlePlayerChat(ClientboundPlayerChatPacket packet, CallbackInfo ci){
         int type = packet.chatType().chatType();
-        System.out.println(type);
         if(type == 2){
             String component = Objects.requireNonNull(this.level.getPlayerByUUID(packet.sender())).getName().getString();
             if(!component.equals(ReplyMod.clientUsername)){

@@ -32,7 +32,7 @@ public abstract class ChatScreenMixin extends Screen {
 			),
 			cancellable = true
 	)
-	private void replymod$normalizeChatMessages(String input, boolean addToRecentChat, CallbackInfoReturnable<Boolean> cir){
+	private void replymod$handleChatInput(String input, boolean addToRecentChat, CallbackInfoReturnable<Boolean> cir){
 		if(input.length() > 4 && input.substring(1,3).equals("r ")){
 			this.minecraft.gui.getChat().getRecentChat().forEach(s -> System.out.println(s));
 			this.minecraft.player.connection.sendCommand("msg " + ReplyMod.lastMessenger + " " + input.substring(3));
