@@ -8,22 +8,35 @@ package io.github.maheevil.replymod;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.MessageArgument;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ReplyMod implements ClientModInitializer {
 
-	public static final Logger LOGGER = LogManager.getLogger("replymod");
 	public static String lastMessenger;
-	public static String clientUsername = "";
 
 	@Override
 	public void onInitializeClient() {
 		ClientCommandRegistrationCallback.EVENT.register(
 				(dispatcher, registryAccess) -> dispatcher.register(
 						ClientCommandManager.literal("r").then(
-								ClientCommandManager.argument("message",MessageArgument.message())
+								ClientCommandManager.argument("message",MessageArgument.message()).executes(
+										context -> {
+											assert Minecraft.getInstance().player != null;
+
+											String message = context.getArgument(
+													"message",
+													MessageArgument.Message.class
+											).getText();
+											String commandToSend = "msg " + lastMessenger + " " + message;
+
+											Minecraft.getInstance().player.connection.sendCommand(
+													commandToSend
+											);
+
+											return 1;
+										}
+								)
 						)
 				)
 		);
