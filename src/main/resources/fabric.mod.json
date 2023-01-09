@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "ReplyMod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Adds a Reply Command that sends message to the last person who messaged you ",
   "authors": [
     "Maheesha"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/MaheEvil/Fabric-Example-Mod-Parchment-QF"
+    "homepage": "https://github.com/MaheEvil/ReplyMod",
+    "sources": "https://github.com/MaheEvil/ReplyMod"
   },
 
   "license": "MPL-2.0",
@@ -28,7 +28,7 @@
 
   "depends": {
     "fabricloader": ">=0.12.9",
-    "minecraft": "1.19.x",
+    "minecraft": "1.19.3",
     "java": ">=17",
     "fabric-api": "*"
   },

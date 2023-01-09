@@ -30,18 +30,15 @@ public class ClientPacketListenerMixin {
     )
     private void replymod$handlePlayerChat(ClientboundPlayerChatPacket packet, CallbackInfo ci){
         int type = packet.chatType().chatType();
+
+        // Type 2 is for incoming direct messages
+        // Type 3 is for outgoing direct messages
         if(type == 2){
-            String component = Objects.requireNonNull(this.level.getPlayerByUUID(packet.sender())).getName().getString();
-            if(!component.equals(ReplyMod.clientUsername)){
-                ReplyMod.lastMessenger = component;
-            }
+            ReplyMod.lastMessenger = Objects.requireNonNull(this.level.getPlayerByUUID(packet.sender())).getName().getString();
         }else if(type == 3){
             Component component = packet.chatType().targetName();
             if(component != null){
-                var sender = component.getString();
-                if(!sender.equals(ReplyMod.clientUsername)){
-                    ReplyMod.lastMessenger = component.getString();
-                }
+                ReplyMod.lastMessenger = component.getString();
             }
         }
     }
