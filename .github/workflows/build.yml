@@ -51,10 +51,10 @@ jobs:
         if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
         uses: Kir-Antipov/mc-publish@v3.2
         with:
-          curseforge-id: 550257
+          curseforge-id: 803196
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
-          modrinth-id: LNeXYJOg
+          modrinth-id: 1KHXVgOU
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
           name: "${{env.RELEASE_NAME}}"
