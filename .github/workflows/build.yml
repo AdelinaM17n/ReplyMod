@@ -1,39 +1,71 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# REMINDER TO CHANGE VERSION RESOLVER, For now manually specifying work
+# Change this to an automatic resolver in the future
 
-name: build
-on: [pull_request, push]
+name: Upload Artifacts and Optionally Publish on Curseforge & Modrinth
+
+on: [ push ]
+
+env:
+  MINECRAFT_VERSION: 1.19.4
+  JAVA_VERSION: 17
+  VERSION: fabric-1.19.4+1.1.0
+  RELEASE_NAME: ReplyMod-1.1.0+1.19.4
+  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+  CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    strategy:
-      matrix:
-        # Use these Java versions
-        java: [
-          17    # Minimum supported by Minecraft
-        ]
-        # and run on both Linux and Windows
-        os: [ubuntu-20.04, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v2
-      - name: validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: setup jdk ${{ matrix.java }}
-        uses: actions/setup-java@v1
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
         with:
-          java-version: ${{ matrix.java }}
-      - name: make gradle wrapper executable
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
-      - name: build
-        run: ./gradlew build
+
+      - name: Build
+        run: ./gradlew clean build
+
       - name: capture build artifacts
-        if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v2
         with:
           name: Artifacts
           path: build/libs/
+
+      - name: Publish (CurseForge/Modrinth/Github)
+        if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
+        uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          curseforge-id: 550257
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+
+          modrinth-id: LNeXYJOg
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md
+
+          loaders: |
+            fabric
+            quilt
+
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
