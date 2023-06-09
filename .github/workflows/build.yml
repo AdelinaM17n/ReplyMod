@@ -6,10 +6,10 @@ name: Upload Artifacts and Optionally Publish on Curseforge & Modrinth
 on: [ push ]
 
 env:
-  MINECRAFT_VERSION: 1.19.4
+  # MINECRAFT_VERSION: 1.19.4
   JAVA_VERSION: 17
-  VERSION: fabric-1.19.4+1.1.0
-  RELEASE_NAME: ReplyMod-1.1.0+1.19.4
+  VERSION: fabric-1.20+1.1.0
+  RELEASE_NAME: ReplyMod-1.1.0+1.20
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
@@ -67,5 +67,7 @@ jobs:
             quilt
 
           game-versions: "${{env.MINECRAFT_VERSION}}"
+          dependencies: |
+            fabric@0.83.0+1.20(required){modrinth:P7dR8mSH}{curseforge:306612}
           java: "${{env.JAVA_VERSION}}"
 
