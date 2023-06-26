@@ -1,1 +1,1 @@
-- BugFix
+- Fixes a bug where last messenger was not updated with incoming MSGs
