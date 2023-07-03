@@ -1,1 +1,1 @@
-- Fixes a bug where last messenger was not updated with incoming MSGs
+- Adds support to System Messages for compatibility with various chat report prevention mods
