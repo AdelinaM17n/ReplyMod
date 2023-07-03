@@ -45,14 +45,17 @@ public class ChatListenerMixin {
     )
     private void replymod$handleSystemMessage(Component message, boolean isOverlay, CallbackInfo ci){
         String string = message.getString();
-        if(string.contains("whispers")){
-            String s = string.split(" ")[0];
-            ReplyMod.lastMessenger = s;
-            System.out.println("whispers catch : " + s);
-        }else if(string.contains("whisper")){
-            String s = string.split(" ")[3].replace(":","");
-            ReplyMod.lastMessenger = s;
-            System.out.println(s);
+
+        if(string.contains("whisper")){
+            String[] messageParts = string.split(" ");
+
+            if(messageParts.length >= 4){
+                if(messageParts[1].equalsIgnoreCase("whisper")){
+                    ReplyMod.lastMessenger = messageParts[3].replace(":", "");
+                }else if(messageParts[1].equalsIgnoreCase("whispers")){
+                    ReplyMod.lastMessenger = messageParts[0];
+                }
+            }
         }
     }
 }
