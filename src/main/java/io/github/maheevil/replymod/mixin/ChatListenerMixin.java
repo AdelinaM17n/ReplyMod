@@ -5,6 +5,7 @@ import io.github.maheevil.replymod.ReplyMod;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.ChatTypeDecoration;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,27 @@ public class ChatListenerMixin {
             } else {
                 assert boundChatType.targetName() != null;
                 ReplyMod.lastMessenger = boundChatType.targetName().getString();
+                System.out.println(ReplyMod.lastMessenger);
             }
+        }
+    }
+
+    @Inject(
+            method = "handleSystemMessage",
+            at = @At(
+                    value = "HEAD"
+            )
+    )
+    private void replymod$handleSystemMessage(Component message, boolean isOverlay, CallbackInfo ci){
+        String string = message.getString();
+        if(string.contains("whispers")){
+            String s = string.split(" ")[0];
+            ReplyMod.lastMessenger = s;
+            System.out.println("whispers catch : " + s);
+        }else if(string.contains("whisper")){
+            String s = string.split(" ")[3].replace(":","");
+            ReplyMod.lastMessenger = s;
+            System.out.println(s);
         }
     }
 }
