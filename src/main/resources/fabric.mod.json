@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "ReplyMod",
-  "description": "Adds a Reply Command that sends message to the last person who messaged you ",
+  "description": "Adds a Reply Command that sends message to the last person who messaged you",
   "authors": [
     "Maheesha"
   ],
