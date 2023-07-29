@@ -1,1 +1,1 @@
-- Adds support to System Messages for compatibility with various chat report prevention mods
+- Tatar translation contributed by [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I)
