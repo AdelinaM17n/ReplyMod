@@ -1,1 +1,1 @@
-- Tatar translation contributed by [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I)
+- 1.20.4
