@@ -49,7 +49,7 @@ jobs:
 
       - name: Publish (CurseForge/Modrinth/Github)
         if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: 803196
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
