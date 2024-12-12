@@ -27,7 +27,7 @@ public class ReplyMod implements ClientModInitializer {
 											String message = context.getArgument(
 													"message",
 													MessageArgument.Message.class
-											).getText();
+											).text();
 											String commandToSend = "msg " + lastMessenger + " " + message;
 
 											Minecraft.getInstance().player.connection.sendCommand(

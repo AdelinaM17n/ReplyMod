@@ -23,15 +23,15 @@ public class ChatListenerMixin {
     private void replymod$handlePlayerChatMessage(
             PlayerChatMessage chatMessage, GameProfile gameProfile, ChatType.Bound boundChatType, CallbackInfo ci
     ){
-        ChatTypeDecoration chat = boundChatType.chatType().chat();
+        ChatTypeDecoration chat = boundChatType.chatType().value().chat();
         String name = chat.parameters().get(0).getSerializedName();
 
         if(!chat.style().isEmpty()){
             if(name.equalsIgnoreCase("sender")){
                 ReplyMod.lastMessenger = gameProfile.getName();
             } else {
-                assert boundChatType.targetName() != null;
-                ReplyMod.lastMessenger = boundChatType.targetName().getString();
+                assert boundChatType.targetName().isPresent();
+                ReplyMod.lastMessenger = boundChatType.targetName().get().getString();//.getString();
                 System.out.println(ReplyMod.lastMessenger);
             }
         }
