@@ -8,8 +8,8 @@ on: [ push ]
 env:
   # MINECRAFT_VERSION: 1.19.4
   JAVA_VERSION: 17
-  VERSION: fabric-1.21.4+1.3.2
-  RELEASE_NAME: ReplyMod-1.3.2+1.21.4
+  VERSION: fabric-1.21.4+1.3.3
+  RELEASE_NAME: ReplyMod-1.3.3+1.21.4
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
