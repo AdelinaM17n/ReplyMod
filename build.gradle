@@ -75,3 +75,7 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+
+tasks.named('remapJar') {
+    archiveBaseName.set(project.archives_base_name)
+}
