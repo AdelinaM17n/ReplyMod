@@ -40,5 +40,29 @@ public class ReplyMod implements ClientModInitializer {
 						)
 				)
 		);
+
+        ClientCommandRegistrationCallback.EVENT.register(
+                (dispatcher, registryAccess) -> dispatcher.register(
+                        ClientCommandManager.literal("reply").then(
+                                ClientCommandManager.argument("message",MessageArgument.message()).executes(
+                                        context -> {
+                                            assert Minecraft.getInstance().player != null;
+
+                                            String message = context.getArgument(
+                                                    "message",
+                                                    MessageArgument.Message.class
+                                            ).text();
+                                            String commandToSend = "msg " + lastMessenger + " " + message;
+
+                                            Minecraft.getInstance().player.connection.sendCommand(
+                                                    commandToSend
+                                            );
+
+                                            return 1;
+                                        }
+                                )
+                        )
+                )
+        );
 	}
 }

@@ -28,7 +28,7 @@ public class ChatListenerMixin {
 
         if(!chat.style().isEmpty()){
             if(name.equalsIgnoreCase("sender")){
-                ReplyMod.lastMessenger = gameProfile.getName();
+                ReplyMod.lastMessenger = gameProfile.name();
             } else {
                 assert boundChatType.targetName().isPresent();
                 ReplyMod.lastMessenger = boundChatType.targetName().get().getString();//.getString();
