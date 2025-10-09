@@ -1,1 +1,2 @@
-- 1.21.8
+- Updated to 1.21.9 by a PR y [P3nguinMinecraft](https://github.com/P3nguinMinecraft)
+- New command, `/reply`, with the same functionality as `/r` added

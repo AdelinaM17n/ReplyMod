@@ -24,7 +24,7 @@ public class ChatListenerMixin {
             PlayerChatMessage chatMessage, GameProfile gameProfile, ChatType.Bound boundChatType, CallbackInfo ci
     ){
         ChatTypeDecoration chat = boundChatType.chatType().value().chat();
-        String name = chat.parameters().get(0).getSerializedName();
+        String name = chat.parameters().getFirst().getSerializedName();
 
         if(!chat.style().isEmpty()){
             if(name.equalsIgnoreCase("sender")){

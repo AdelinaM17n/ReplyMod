@@ -5,9 +5,11 @@
  */
 package io.github.maheevil.replymod;
 
+import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.MessageArgument;
 
@@ -21,21 +23,7 @@ public class ReplyMod implements ClientModInitializer {
 				(dispatcher, registryAccess) -> dispatcher.register(
 						ClientCommandManager.literal("r").then(
 								ClientCommandManager.argument("message",MessageArgument.message()).executes(
-										context -> {
-											assert Minecraft.getInstance().player != null;
-
-											String message = context.getArgument(
-													"message",
-													MessageArgument.Message.class
-											).text();
-											String commandToSend = "msg " + lastMessenger + " " + message;
-
-											Minecraft.getInstance().player.connection.sendCommand(
-													commandToSend
-											);
-
-											return 1;
-										}
+										ReplyMod::commandLogic
 								)
 						)
 				)
@@ -45,24 +33,26 @@ public class ReplyMod implements ClientModInitializer {
                 (dispatcher, registryAccess) -> dispatcher.register(
                         ClientCommandManager.literal("reply").then(
                                 ClientCommandManager.argument("message",MessageArgument.message()).executes(
-                                        context -> {
-                                            assert Minecraft.getInstance().player != null;
-
-                                            String message = context.getArgument(
-                                                    "message",
-                                                    MessageArgument.Message.class
-                                            ).text();
-                                            String commandToSend = "msg " + lastMessenger + " " + message;
-
-                                            Minecraft.getInstance().player.connection.sendCommand(
-                                                    commandToSend
-                                            );
-
-                                            return 1;
-                                        }
+                                        ReplyMod::commandLogic
                                 )
                         )
                 )
         );
+	}
+
+	private static int commandLogic(CommandContext<FabricClientCommandSource> context){
+		assert Minecraft.getInstance().player != null;
+
+		String message = context.getArgument(
+				"message",
+				MessageArgument.Message.class
+		).text();
+		String commandToSend = "msg " + lastMessenger + " " + message;
+
+		Minecraft.getInstance().player.connection.sendCommand(
+				commandToSend
+		);
+
+		return 1;
 	}
 }
