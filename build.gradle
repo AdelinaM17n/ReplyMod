@@ -17,10 +17,10 @@ repositories {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.layered() {
+	/*mappings loom.layered() {
 		officialMojangMappings()
 		//parchment("${project.parchment_mappings}")
-	}
+	}*/
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
@@ -51,19 +51,19 @@ java {
 }
 
 jar {
+	def projectName = project.name
+	inputs.property "projectName", projectName
+
 	from("LICENSE") {
-		rename { "${it}_${archives_base_name}"}
+		rename { "${it}_$projectName"}
 	}
 }
 
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
+		create("mavenJava", MavenPublication) {
+			from components.java
 		}
 	}
 
@@ -76,6 +76,4 @@ publishing {
 	}
 }
 
-tasks.named('remapJar') {
-    archiveBaseName.set(project.archives_base_name)
-}
+
