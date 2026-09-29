@@ -51,8 +51,8 @@ jobs:
         if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: 803196
-          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+          #curseforge-id: 803196
+          #curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
           modrinth-id: 1KHXVgOU
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
@@ -68,6 +68,6 @@ jobs:
 
           game-versions: "${{env.MINECRAFT_VERSION}}"
           dependencies: |
-            fabric(required){modrinth:P7dR8mSH}{curseforge:306612}
+            fabric(required){modrinth:P7dR8mSH}
           java: "${{env.JAVA_VERSION}}"
 
