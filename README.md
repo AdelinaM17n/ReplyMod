@@ -1,9 +1,5 @@
-# ReplyMod
-
-## Setup
-
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+# Reply Mod
+A mod that adds a `/r` command which allows you to message the last player that messaged you
 
 ## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This mod is available under the MPL-2.0 license.

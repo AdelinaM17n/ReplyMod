@@ -1,5 +1,5 @@
 {
-	"required": true,
+	"required": false,
 	"package": "io.github.adelinam17n.replymod.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [

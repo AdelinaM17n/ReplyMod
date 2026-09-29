@@ -3,15 +3,15 @@
 	"id": "replymod",
 	"version": "${version}",
 	"name": "ReplyMod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds a Reply Command that sends message to the last person who messaged you",
 	"authors": [
-		"Me!"
+		"Adelina"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/AdelinaM17n/ReplyMod",
+		"sources": "https://github.com/AdelinaM17n/ReplyMod"
 	},
-	"license": "CC0-1.0",
+	"license": "MPL-2.0",
 	"icon": "assets/replymod/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -28,7 +28,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.5",
-		"minecraft": "~26.1",
+		"minecraft": "26.x",
 		"java": ">=25",
 		"fabric-api": "*"
 	}
