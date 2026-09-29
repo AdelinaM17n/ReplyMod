@@ -1,38 +1,35 @@
 {
-  "schemaVersion": 1,
-  "id": "replymod",
-  "version": "${version}",
-
-  "name": "ReplyMod",
-  "description": "Adds a Reply Command that sends message to the last person who messaged you",
-  "authors": [
-    "Adelina"
-  ],
-  "contact": {
-    "homepage": "https://github.com/AdelinaM17n/ReplyMod",
-    "sources": "https://github.com/AdelinaM17n/ReplyMod"
-  },
-
-  "license": "MPL-2.0",
-  "icon": "assets/replymod/icon.png",
-
-  "environment": "*",
-  "entrypoints": {
-    "client": [
-      "io.github.maheevil.replymod.ReplyMod"
-    ]
-  },
-  "mixins": [
-    "replymod.mixins.json"
-  ],
-
-  "depends": {
-    "fabricloader": ">=0.17.2",
-    "minecraft": ">=1.21.9",
-    "java": ">=21",
-    "fabric-api": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
-  }
+	"schemaVersion": 1,
+	"id": "replymod",
+	"version": "${version}",
+	"name": "ReplyMod",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/replymod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"io.github.adelinam17n.replymod.client.ReplyModClient"
+		]
+	},
+	"mixins": [
+		"replymod.mixins.json",
+		{
+			"config": "replymod.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
 }

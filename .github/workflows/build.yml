@@ -1,73 +1,30 @@
-# REMINDER TO CHANGE VERSION RESOLVER, For now manually specifying work
-# Change this to an automatic resolver in the future
+# Automatically build the project and run any configured tests for every push
+# and submitted pull request. This can help catch issues that only occur on
+# certain platforms or Java versions, and provides a first line of defence
+# against bad commits.
 
-name: Upload Artifacts and Optionally Publish on Curseforge & Modrinth
-
-on: [ push ]
-
-env:
-  # MINECRAFT_VERSION: 1.19.4
-  JAVA_VERSION: 17
-  VERSION: fabric-1.21.10+1.4
-  RELEASE_NAME: ReplyMod-1.4+1.21.10
-  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-  CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
-
-permissions:
-  contents: write
+name: build
+on: [pull_request, push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - name: Check Environment Variables
-        run: env
-
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: checkout repository
+        uses: actions/checkout@v6
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v6
+      - name: setup jdk
+        uses: actions/setup-java@v5
         with:
-          submodules: true
-
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: "temurin"
-          java-version: 21
-
-      - name: Make Gradle Wrapper Executable
-        if: ${{ runner.os != 'Windows' }}
+          java-version: '25'
+          distribution: 'microsoft'
+      - name: make gradle wrapper executable
         run: chmod +x ./gradlew
-
-      - name: Build
-        run: ./gradlew clean build
-
+      - name: build
+        run: ./gradlew build
       - name: capture build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Artifacts
           path: build/libs/
-
-      - name: Publish (CurseForge/Modrinth/Github)
-        if: "contains(github.event.head_commit.message, 'ACTION_RELEASE')"
-        uses: Kir-Antipov/mc-publish@v3.3
-        with:
-          curseforge-id: 803196
-          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
-
-          modrinth-id: 1KHXVgOU
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
-
-          name: "${{env.RELEASE_NAME}}"
-          version: "${{env.VERSION}}"
-          version-type: release
-          changelog-file: CHANGELOG.md
-
-          loaders: |
-            fabric
-            quilt
-
-          game-versions: "${{env.MINECRAFT_VERSION}}"
-          dependencies: |
-            fabric(required){modrinth:P7dR8mSH}{curseforge:306612}
-          java: "${{env.JAVA_VERSION}}"
-
